@@ -1,6 +1,6 @@
 {
   "title": "SassyCast",
-  "name": "SassyCast",
+  "name": "sassy-cast",
   "version": "2.0.2",
   "description": "A Sass API data type conversion.",
   "main": "./dist/_SassyCast.scss",
