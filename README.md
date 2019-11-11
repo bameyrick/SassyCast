@@ -11,11 +11,11 @@ SassyCast is a simple API for type conversion in Sass. Read [API documentation](
 
 ## Installation
 
-```
+```bash
 npm install sassy-cast
 ```
 
-```
+```bash
 yarn add sassy-cast
 ```
 
