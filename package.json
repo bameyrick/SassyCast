@@ -1,33 +1,43 @@
 {
   "title": "SassyCast",
-  "name": "SassyCast",
+  "name": "sassy-cast",
   "version": "2.0.2",
   "description": "A Sass API data type conversion.",
   "main": "./dist/_SassyCast.scss",
   "style": "./dist/_SassyCast.scss",
   "scripts": {
-    "test": "mocha test/index.js",
-    "build": "find stylesheets/ -name '*.scss' -exec cat {} + > ./dist/_SassyCast.scss"
+    "test": "yarn build && mocha test/index.js",
+    "build": "yarn tidy-clean && mkdir dist && find stylesheets/ -name '*.scss' -exec cat {} + > ./dist/_SassyCast.scss",
+    "check-package": "yarn build && tar tvf $(npm pack)",
+    "build-docs": "npm --no-git-tag-version version $(git tag | tail -1) && yarn sassdoc stylesheets/",
+    "tidy-clean": "rm -rf ./dist && find . -maxdepth 1  -name '*.tgz' -delete && rm -rf ./sassdoc"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HugoGiraudel/SassyCast"
+    "url": "https://github.com/bameyrick/SassyCast"
   },
-  "keywords": [
-    "sass",
-    "scss",
-    "cast",
-    "type",
-    "data type"
-  ],
-  "author": "Hugo Giraudel",
+  "keywords": ["sass", "scss", "cast", "type", "data type"],
+  "author": "Ben Meyrick <bameyrick@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HugoGiraudel/SassyCast/issues"
+    "url": "https://github.com/bameyrick/SassyCast/issues"
   },
-  "homepage": "https://github.com/HugoGiraudel/SassyCast",
+  "homepage": "https://github.com/bameyrick/SassyCast",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test"
+    }
+  },
+  "lint-staged": {
+    "*.json": ["prettier --print-width 140 --single-quote --trailing-comma es5 --parser json --write", "git add"],
+    "*.js": ["prettier --print-width 140 --single-quote --trailing-comma es5 --parser babel --write", "git add"]
+  },
   "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "mocha": "^2.4.5",
-    "sass-true": "^2.0.3"
+    "prettier": "^1.19.1",
+    "sass-true": "^2.0.3",
+    "sassdoc": "^2.7.1"
   }
 }
